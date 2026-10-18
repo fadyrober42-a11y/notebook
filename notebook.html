@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1f4d3a">
+<title>النوتة الروحية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#1f4d3a;--g2:#2f6b52;--gold:#c8a24a;--bg:#faf6ec;--card:#fff;--ink:#23302a;--mut:#7a857e;--line:#e6dfcc;--err:#b3382c}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo',system-ui,sans-serif;font-size:16px;line-height:1.5}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+input,select{font-family:inherit;font-size:16px}
+main{max-width:720px;margin:0 auto;padding:12px 12px 48px}
+.top{background:var(--g);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top))}
+.t1{font-weight:700;font-size:18px}.t2{font-size:13px;opacity:.85}
+.ghost{background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:10px;padding:6px 14px}
+.tabs{display:flex;gap:6px;max-width:720px;margin:10px auto 0;padding:0 12px}
+.tabs button{flex:1;border:1px solid var(--line);background:#fff;border-radius:12px;padding:8px 4px;font-weight:600}
+.tabs button.on{background:var(--g);color:#fff;border-color:var(--g)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:10px 0}
+.auth{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+.auth .card{width:100%;max-width:380px;text-align:center;padding:24px}
+.auth h1{margin:6px 0 2px;color:var(--g);font-size:24px}
+.verse{color:var(--mut);font-size:14px;margin:0 0 16px}
+label{display:block;text-align:right;font-weight:600;font-size:14px;margin:10px 0}
+label input{display:block;width:100%;margin-top:4px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fffdf7}
+.btn{width:100%;border:0;border-radius:12px;padding:12px;font-weight:700;margin-top:6px}
+.primary{background:var(--g);color:#fff}.primary:disabled{opacity:.6}
+.link{background:none;border:0;color:var(--g2);margin-top:12px;text-decoration:underline}
+.err{background:#fbeae8;color:var(--err);border-radius:10px;padding:8px 10px;font-size:14px;margin:6px 0}
+.weekbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0}
+.weekbar>div{text-align:center;flex:1}.weekbar small{display:block;color:var(--gold);font-weight:700}
+.weekbar button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:22px}
+.weekbar button:disabled{opacity:.35}
+.prog{display:flex;align-items:center;gap:12px}
+.pct{font-size:28px;font-weight:700;color:var(--g);min-width:70px}
+.bar{flex:1;height:12px;border-radius:8px;background:#efe9d6;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--g2));border-radius:8px}
+.sub{color:var(--mut);font-size:13px}
+.tbl{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:16px;margin:10px 0}
+table{border-collapse:collapse;width:100%}
+th,td{padding:8px 4px;text-align:center;border-bottom:1px solid var(--line);font-size:14px}
+thead th{background:#f3eddb;font-size:13px}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+tbody th{text-align:right;padding-right:12px;white-space:nowrap}
+.chk{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;border:2px solid var(--gold);background:#fff;padding:0;color:#fff;font-weight:700;font-style:normal}
+.chk.on{background:var(--g);border-color:var(--g)}
+.chk.on::after{content:'✓'}
+button:disabled.chk,button:disabled.wcard{opacity:1;cursor:default}
+h3{margin:18px 4px 6px;color:var(--g)}
+.wk{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.wcard{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px;text-align:right;font-weight:600;font-size:14px}
+.wcard.on{border-color:var(--g);background:#eef6f1}
+.wcard input{width:64px;padding:6px;border:1px solid var(--line);border-radius:10px;text-align:center}
+.row{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0;width:100%;text-align:right}
+.row .nm{flex:0 0 38%;font-weight:600}
+.row .bar{height:10px}.row .p{min-width:44px;text-align:left;font-weight:700;color:var(--g)}
+.chip{font-size:11px;background:#f3eddb;border-radius:8px;padding:1px 7px;color:#7b6420;margin-right:6px;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+.stat b{display:block;font-size:22px;color:var(--g)}.stat span{font-size:12px;color:var(--mut)}
+.back{background:none;border:0;color:var(--g2);font-weight:700;padding:8px 0}
+.edit{display:flex;gap:8px;align-items:center;margin:6px 0}
+.edit input,.edit select{flex:1;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fffdf7;min-width:0}
+.mini{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-weight:600}
+.mini.red{color:var(--err)}
+.mini:disabled{opacity:.4}
+.center{min-height:100vh;display:flex;align-items:center;justify-content:center;color:var(--mut)}
+.muted{color:var(--mut);text-align:center;padding:24px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#23302a;color:#fff;padding:10px 18px;border-radius:12px;z-index:9;font-size:14px;max-width:90%}
+@media(max-width:380px){th,td{font-size:12px}.chk{width:30px;height:30px}.wk{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+// ================== 1) الصق إعدادات Firebase بتاعتك هنا ==================
+const firebaseConfig = {
+  apiKey: "AIzaSyBQvGb6_UXuFxUCpk_Xn7G2kVvjrU9Kt5c",
+  authDomain: "spiritual-notebook-404f8.firebaseapp.com",
+  projectId: "spiritual-notebook-404f8",
+  storageBucket: "spiritual-notebook-404f8.firebasestorage.app",
+  messagingSenderId: "739384661995",
+  appId: "1:739384661995:web:e6303ee0c545ac9d37abae"
+};
+// =========================================================================
+
+const fbLoaded = typeof firebase !== 'undefined';
+const configured = fbLoaded && firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('PASTE');
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clone = o => JSON.parse(JSON.stringify(o));
+
+const DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const DEFAULT_ITEMS = {
+  daily: [
+    {id:'bible', label:'الكتاب المقدس'},
+    {id:'sleep', label:'صلاة النوم'},
+    {id:'early', label:'صلاة باكر'},
+    {id:'fast',  label:'صوم'}
+  ],
+  weekly: [
+    {id:'mass', label:'قداس', type:'check'},
+    {id:'communion', label:'تناول', type:'check'},
+    {id:'serviceAttend', label:'حضور الخدمة', type:'check'},
+    {id:'books', label:'كتب روحية', type:'check'},
+    {id:'confession', label:'اعتراف', type:'check'},
+    {id:'prayerMeet', label:'اجتماع الصلاة', type:'check'},
+    {id:'familyMeet', label:'اجتماع الأسرة', type:'check'},
+    {id:'lost', label:'عدد المفقودين', type:'number'},
+    {id:'meditations', label:'تأملات', type:'check'},
+    {id:'visitation', label:'الافتقاد', type:'check'},
+    {id:'generalMeeting', label:'اجتماع الخدمة العام', type:'check'},
+    {id:'selfExam', label:'محاسبة النفس', type:'check'}
+  ]
+};
+
+const ERR = {
+  'auth/email-already-in-use':'الاسم ده مسجل قبل كده. لو ده انت اعمل تسجيل دخول، ولو شخص تاني أضف حاجة تميّز اسمك.',
+  'auth/invalid-credential':'الاسم أو كلمة السر غلط',
+  'auth/wrong-password':'الاسم أو كلمة السر غلط',
+  'auth/user-not-found':'الاسم أو كلمة السر غلط',
+  'auth/weak-password':'كلمة السر لازم تكون 6 حروف أو أرقام على الأقل',
+  'auth/network-request-failed':'مفيش اتصال بالإنترنت',
+  'auth/too-many-requests':'محاولات كتير، استنى شوية وجرّب تاني',
+  'auth/operation-not-allowed':'فعّل Email/Password من Authentication في Firebase',
+  'permission-denied':'مفيش صلاحية. اتأكد إن قواعد Firestore اتنشرت صح.'
+};
+const errText = e => ERR[e.code] || e.message || String(e);
+
+const S = {ready:false, mode:'login', busy:false, authErr:'', nmVal:'', registering:false,
+  user:null, profile:null, items:clone(DEFAULT_ITEMS), draft:null, tab:'mine',
+  weekStart:startOfWeek(new Date()), week:null, unsub:null,
+  members:[], membersLoading:false, loadTok:0, selected:null};
+
+// ---------- helpers ----------
+function startOfWeek(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-x.getDay());return x}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+function wid(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+const fmt = d => d.toLocaleDateString('ar-EG',{day:'numeric',month:'long'});
+const isAdmin = () => S.profile && S.profile.role === 'admin';
+const ts = () => firebase.firestore.FieldValue.serverTimestamp();
+
+function norm(n){return n.normalize('NFKC').replace(/[\u064B-\u065F\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/\s+/g,' ').trim().toLowerCase()}
+function h53(str){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<str.length;i++){const ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}
+  h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);
+  h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
+  return 4294967296*(2097151&h2)+(h1>>>0)}
+const emailFor = n => 'n'+h53(norm(n)).toString(16)+'@notebook.app';
+
+function calc(week){
+  const dI=S.items.daily, wI=S.items.weekly.filter(i=>i.type!=='number');
+  const d=(week&&week.d)||{}, w=(week&&week.w)||{};
+  let done=0;
+  for(let i=0;i<7;i++) for(const it of dI) if(d[i]&&d[i][it.id]) done++;
+  for(const it of wI) if(w[it.id]) done++;
+  const total=dI.length*7+wI.length;
+  return {done,total,pct:total?Math.round(done*100/total):0};
+}
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
+
+// ---------- firebase ----------
+let auth, db;
+if(configured){ firebase.initializeApp(firebaseConfig); auth=firebase.auth(); db=firebase.firestore(); }
+const weekRef = (uid=S.user.uid, w=S.weekStart) => db.doc('users/'+uid+'/weeks/'+wid(w));
+
+function cleanup(){
+  if(S.unsub){S.unsub();S.unsub=null}
+  Object.assign(S,{week:null,members:[],selected:null,tab:'mine',draft:null,items:clone(DEFAULT_ITEMS),weekStart:startOfWeek(new Date())});
+}
+
+async function afterLogin(u){
+  S.user=u;
+  let snap=await db.doc('users/'+u.uid).get();
+  if(!snap.exists){
+    await db.doc('users/'+u.uid).set({name:u.displayName||'عضو',role:'user',createdAt:ts()});
+    snap=await db.doc('users/'+u.uid).get();
+  }
+  S.profile=snap.data();
+  const it=await db.doc('config/items').get();
+  if(it.exists && Array.isArray(it.data().daily) && Array.isArray(it.data().weekly)) S.items={daily:it.data().daily,weekly:it.data().weekly};
+  S.tab=isAdmin()?'dash':'mine';
+  S.weekStart=startOfWeek(new Date());
+  watchWeek();
+  if(isAdmin()) loadMembers(); else render();
+}
+
+function watchWeek(){
+  if(S.unsub){S.unsub();S.unsub=null}
+  S.week=null;
+  if(!S.user) return;
+  S.unsub=weekRef().onSnapshot(s=>{S.week=s.exists?s.data():{}; if(S.tab==='mine') render()}, e=>toast(errText(e)));
+}
+
+async function loadMembers(){
+  const tok=++S.loadTok, wk=S.weekStart;
+  S.membersLoading=true; render();
+  try{
+    const us=await db.collection('users').get();
+    const list=await Promise.all(us.docs.map(async d=>{
+      const w=await weekRef(d.id,wk).get();
+      return {id:d.id,...d.data(),week:w.exists?w.data():{}};
+    }));
+    if(tok!==S.loadTok) return;
+    list.sort((a,b)=>String(a.name).localeCompare(String(b.name),'ar'));
+    S.members=list;
+  }catch(e){toast(errText(e))}
+  if(tok===S.loadTok){S.membersLoading=false; render()}
+}
+
+async function register(name,pw){
+  name=name.replace(/\s+/g,' ').trim();
+  if(name.length<2) throw {message:'اكتب اسمك'};
+  S.registering=true;
+  let cred;
+  try{
+    cred=await auth.createUserWithEmailAndPassword(emailFor(name),pw);
+    await cred.user.updateProfile({displayName:name});
+    const userRef=db.doc('users/'+cred.user.uid), bootRef=db.doc('config/bootstrap');
+    const first=!(await bootRef.get()).exists;
+    const base={name,createdAt:ts()};
+    if(first){
+      try{
+        const b=db.batch();
+        b.set(bootRef,{uid:cred.user.uid});
+        b.set(userRef,{...base,role:'admin'});
+        await b.commit();
+      }catch(e){ await userRef.set({...base,role:'user'}) }
+    }else{
+      await userRef.set({...base,role:'user'});
+    }
+  }catch(e){S.registering=false; throw e}
+  S.registering=false;
+  await afterLogin(cred.user);
+}
+
+auth && auth.onAuthStateChanged(async u=>{
+  S.ready=true;
+  if(S.registering) return;
+  if(!u){ cleanup(); S.user=null; S.profile=null; render(); return }
+  try{ await afterLogin(u) }catch(e){ S.authErr=errText(e); await auth.signOut() }
+});
+
+// ---------- views ----------
+function render(){
+  const app=$('#app');
+  if(!configured){ app.innerHTML=setupView(); return }
+  if(!S.ready){ app.innerHTML='<div class="center">جارٍ التحميل…</div>'; return }
+  app.innerHTML=(S.user&&S.profile)?shell():authView();
+}
+
+function setupView(){
+  return `<div class="auth"><div class="card"><h1>النوتة الروحية</h1>
+  <p class="sub">${fbLoaded?'افتح ملف index.html والصق إعدادات Firebase في الأعلى (firebaseConfig) وبعدين ارفع الموقع.':'مش قادر يحمّل Firebase. اتأكد من الإنترنت وجرّب تاني. لو بتشوف الصفحة من داخل معاينة أو محرر، افتح الرابط الحقيقي من المتصفح.'}</p></div></div>`;
+}
+
+function authView(){
+  const reg=S.mode==='register';
+  return `<div class="auth"><div class="card">
+  <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><path d="M18 4h8v14h14v8H26v14h-8V26H4v-8h14z" fill="#c8a24a"/></svg>
+  <h1>النوتة الروحية</h1>
+  <p class="verse">«من يجاهد يضبط نفسه في كل شيء» (1كو 9: 25)</p>
+  <form id="authForm">
+    <label>الاسم<input id="nm" autocomplete="username" required placeholder="اكتب اسمك" value="${esc(S.nmVal)}"></label>
+    <label>كلمة السر<input id="pw" type="password" autocomplete="${reg?'new-password':'current-password'}" required minlength="6" placeholder="6 حروف أو أرقام على الأقل"></label>
+    ${S.authErr?`<div class="err">${esc(S.authErr)}</div>`:''}
+    <button class="btn primary" ${S.busy?'disabled':''}>${reg?'إنشاء حساب':'دخول'}</button>
+  </form>
+  <button class="link" data-act="mode">${reg?'عندي حساب — تسجيل دخول':'أول مرة؟ إنشاء حساب'}</button>
+  </div></div>`;
+}
+
+function shell(){
+  const admin=isAdmin();
+  const tabs=admin?[['dash','المتابعة'],['mine','جدولي'],['set','الإعدادات']]:[];
+  const body = admin&&S.tab==='dash' ? dashView() : admin&&S.tab==='set' ? setView() : mineView();
+  return `<header class="top"><div><div class="t1">النوتة الروحية</div><div class="t2">${esc(S.profile.name)}${admin?' · مسؤول':''}</div></div><button class="ghost" data-act="logout">خروج</button></header>
+  ${tabs.length?`<nav class="tabs">${tabs.map(([k,l])=>`<button class="${S.tab===k?'on':''}" data-act="tab" data-v="${k}">${l}</button>`).join('')}</nav>`:''}
+  <main>${body}</main>`;
+}
+
+function weekBar(){
+  const end=addDays(S.weekStart,6), cur=wid(S.weekStart)===wid(startOfWeek(new Date()));
+  return `<div class="weekbar"><button data-act="prev" aria-label="الأسبوع السابق">›</button>
+  <div><b>${fmt(S.weekStart)} – ${fmt(end)}</b>${cur?'<small>الأسبوع الحالي</small>':''}</div>
+  <button data-act="next" ${cur?'disabled':''} aria-label="الأسبوع التالي">‹</button></div>`;
+}
+
+function progressCard(p){
+  return `<div class="card prog"><div class="pct">${p.pct}%</div><div style="flex:1"><div class="bar"><i style="width:${p.pct}%"></i></div><div class="sub">${p.done} من ${p.total}</div></div></div>`;
+}
+
+function tableView(week,edit){
+  const it=S.items, d=(week&&week.d)||{}, w=(week&&week.w)||{};
+  let h=`<div class="tbl"><table><thead><tr><th>اليوم</th>${it.daily.map(x=>`<th>${esc(x.label)}</th>`).join('')}</tr></thead><tbody>`;
+  for(let i=0;i<7;i++){
+    h+=`<tr><th>${DAYS[i]}</th>${it.daily.map(x=>{
+      const on=d[i]&&d[i][x.id];
+      return `<td><button class="chk ${on?'on':''}" ${edit?`data-act="day" data-i="${i}" data-id="${esc(x.id)}"`:'disabled'} aria-label="${esc(x.label)}"></button></td>`;
+    }).join('')}</tr>`;
+  }
+  h+='</tbody></table></div><h3>خانات الأسبوع</h3><div class="wk">';
+  h+=it.weekly.map(x=>{
+    const v=w[x.id];
+    if(x.type==='number') return `<div class="wcard"><span>${esc(x.label)}</span>${edit?`<input type="number" min="0" inputmode="numeric" data-act="num" data-id="${esc(x.id)}" value="${v??''}">`:`<b>${v??0}</b>`}</div>`;
+    return `<button class="wcard ${v?'on':''}" ${edit?`data-act="wk" data-id="${esc(x.id)}"`:'disabled'}><span>${esc(x.label)}</span><i class="chk ${v?'on':''}"></i></button>`;
+  }).join('')+'</div>';
+  return h;
+}
+
+function mineView(){
+  return weekBar()+progressCard(calc(S.week))+(S.week===null?'<div class="muted">جارٍ التحميل…</div>':tableView(S.week,true));
+}
+
+function dashView(){
+  if(S.selected){
+    const m=S.members.find(x=>x.id===S.selected);
+    if(m){
+      return `<button class="back" data-act="back">‹ رجوع للقائمة</button>
+      <h3 style="margin-top:0">${esc(m.name)}</h3>${weekBar()}${progressCard(calc(m.week))}${tableView(m.week,false)}`;
+    }
+  }
+  let body='';
+  if(S.membersLoading) body='<div class="muted">جارٍ التحميل…</div>';
+  else if(!S.members.length) body='<div class="muted">لسه مفيش أعضاء</div>';
+  else{
+    const rows=S.members.map(m=>({m,p:calc(m.week)}));
+    const avg=Math.round(rows.reduce((a,r)=>a+r.p.pct,0)/rows.length);
+    const idle=rows.filter(r=>r.p.done===0).length;
+    body=`<div class="stats"><div class="stat"><b>${rows.length}</b><span>عدد الأعضاء</span></div><div class="stat"><b>${avg}%</b><span>متوسط الإنجاز</span></div><div class="stat"><b>${idle}</b><span>لم يبدأوا</span></div></div>`
+      +rows.map(({m,p})=>`<button class="row" data-act="open" data-id="${esc(m.id)}"><span class="nm">${esc(m.name)}${m.role==='admin'?'<span class="chip">مسؤول</span>':''}</span><div class="bar"><i style="width:${p.pct}%"></i></div><span class="p">${p.pct}%</span></button>`).join('');
+  }
+  return weekBar()+body+`<button class="mini" style="margin-top:8px" data-act="refresh">تحديث</button>`;
+}
+
+function setView(){
+  if(!S.draft) S.draft=clone(S.items);
+  const dr=S.draft;
+  const list=(g)=>dr[g].map((x,i)=>`<div class="edit"><input value="${esc(x.label)}" data-act="lbl" data-g="${g}" data-i="${i}">${g==='weekly'?`<span class="sub">${x.type==='number'?'رقم':'علامة'}</span>`:''}<button class="mini red" data-act="del" data-g="${g}" data-i="${i}">حذف</button></div>`).join('');
+  const members=S.members.map(m=>`<div class="edit"><span style="flex:1">${esc(m.name)}${m.role==='admin'?'<span class="chip">مسؤول</span>':''}</span><button class="mini" data-act="role" data-id="${esc(m.id)}" ${m.id===S.user.uid?'disabled':''}>${m.role==='admin'?'إلغاء المسؤول':'اجعله مسؤول'}</button></div>`).join('');
+  return `<h3 style="margin-top:6px">البنود اليومية</h3><div class="card">${list('daily')}
+    <div class="edit"><input id="addD" placeholder="بند يومي جديد"><button class="mini" data-act="add" data-g="daily">إضافة</button></div></div>
+    <h3>بنود الأسبوع</h3><div class="card">${list('weekly')}
+    <div class="edit"><input id="addW" placeholder="بند أسبوعي جديد"><select id="addT"><option value="check">علامة</option><option value="number">رقم</option></select><button class="mini" data-act="add" data-g="weekly">إضافة</button></div></div>
+    <button class="btn primary" data-act="saveItems">حفظ التعديلات</button>
+    <p class="sub">حذف بند مش بيمسح البيانات القديمة، بس بيخفيه من الجدول.</p>
+    <h3>الأعضاء والمسؤولين</h3><div class="card">${S.membersLoading?'<div class="muted">جارٍ التحميل…</div>':(members||'<div class="muted">مفيش أعضاء</div>')}</div>`;
+}
+
+// ---------- events ----------
+document.addEventListener('submit', async e=>{
+  if(e.target.id!=='authForm') return;
+  e.preventDefault();
+  const name=$('#nm').value, pw=$('#pw').value;
+  S.nmVal=name; S.authErr=''; S.busy=true; render();
+  try{
+    if(S.mode==='register') await register(name,pw);
+    else await auth.signInWithEmailAndPassword(emailFor(name),pw);
+  }catch(err){ S.authErr=errText(err) }
+  S.busy=false; render();
+});
+
+document.addEventListener('click', async e=>{
+  const el=e.target.closest('[data-act]');
+  if(!el||el.disabled) return;
+  const a=el.dataset.act, D=el.dataset;
+  try{
+    if(a==='mode'){S.mode=S.mode==='login'?'register':'login';S.authErr='';render()}
+    else if(a==='logout'){await auth.signOut()}
+    else if(a==='tab'){
+      S.tab=D.v; S.selected=null;
+      if(S.tab==='set') S.draft=clone(S.items);
+      if(S.tab==='dash'||(S.tab==='set'&&!S.members.length)) loadMembers(); else render();
+    }
+    else if(a==='prev'||a==='next'){
+      S.weekStart=addDays(S.weekStart,a==='prev'?-7:7);
+      watchWeek();
+      if(isAdmin()&&S.tab==='dash') loadMembers(); else render();
+    }
+    else if(a==='refresh'){loadMembers()}
+    else if(a==='open'){S.selected=D.id;render()}
+    else if(a==='back'){S.selected=null;render()}
+    else if(a==='day'){
+      const cur=!!(S.week&&S.week.d&&S.week.d[D.i]&&S.week.d[D.i][D.id]);
+      await weekRef().set({d:{[D.i]:{[D.id]:!cur}},updatedAt:ts()},{merge:true});
+    }
+    else if(a==='wk'){
+      const cur=!!(S.week&&S.week.w&&S.week.w[D.id]);
+      await weekRef().set({w:{[D.id]:!cur},updatedAt:ts()},{merge:true});
+    }
+    else if(a==='add'){
+      const g=D.g, inp=$(g==='daily'?'#addD':'#addW'), label=inp.value.trim();
+      if(!label) return;
+      const item={id:'x'+Date.now().toString(36),label};
+      if(g==='weekly') item.type=$('#addT').value;
+      S.draft[g].push(item); render();
+    }
+    else if(a==='del'){
+      if(!confirm('تحذف البند ده؟')) return;
+      S.draft[D.g].splice(+D.i,1); render();
+    }
+    else if(a==='saveItems'){
+      if(!S.draft.daily.length){toast('لازم يفضل بند يومي واحد على الأقل');return}
+      await db.doc('config/items').set({daily:S.draft.daily,weekly:S.draft.weekly});
+      S.items=clone(S.draft); toast('اتحفظ ✓'); render();
+    }
+    else if(a==='role'){
+      const m=S.members.find(x=>x.id===D.id); if(!m) return;
+      const role=m.role==='admin'?'user':'admin';
+      if(!confirm(role==='admin'?'تخليه مسؤول؟ هيشوف تقدم كل الأعضاء.':'تلغي إنه مسؤول؟')) return;
+      await db.doc('users/'+m.id).update({role});
+      m.role=role; render();
+    }
+  }catch(err){toast(errText(err))}
+});
+
+document.addEventListener('change', async e=>{
+  const el=e.target.closest('[data-act]');
+  if(!el) return;
+  const a=el.dataset.act;
+  try{
+    if(a==='num'){
+      const v=Math.max(0,parseInt(el.value,10)||0);
+      await weekRef().set({w:{[el.dataset.id]:v},updatedAt:ts()},{merge:true});
+    }else if(a==='lbl'){
+      const v=el.value.trim();
+      if(v) S.draft[el.dataset.g][+el.dataset.i].label=v; else el.value=S.draft[el.dataset.g][+el.dataset.i].label;
+    }
+  }catch(err){toast(errText(err))}
+});
+
+render();
+</script>
+</body>
+</html>
